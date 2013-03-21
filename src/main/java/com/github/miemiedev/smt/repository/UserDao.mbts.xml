@@ -12,26 +12,7 @@
         <result property="email" column="email" />
         <result property="type" column="user_type" />
         <result property="state" column="user_state" />
-        <result property="loginCount" column="login_count" />
-        <result property="question" column="question" />
-        <result property="answer" column="answer" />
-        <result property="account" column="account" />
-        <result property="branchId" column="branch_id" />
         <result property="createDate" column="create_date" />
-        <result property="modifyDate" column="modify_date" />
-        <result property="lastVisit" column="last_visit" />
-        <result property="level" column="user_level" />
-        <result property="experienceTime" column="experience_time" />
-        <result property="endDate" column="end_date" />
-        <result property="brokerId" column="broker_id" />
-        <result property="isCFTS" column="is_cfts" />
-        <result property="jhway" column="jhway" />
-        <result property="code" column="user_code" />
-        <result property="accName" column="acc_name" />
-        <result property="userIp" column="user_ip" />
-        <result property="country" column="country" />
-        <result property="custIdBak" column="custidbak" />
-        <result property="custId" column="custid" />
     </resultMap>
 
 
@@ -41,7 +22,7 @@
          where ubi.USER_ID = #{id, jdbcType=NUMERIC}
 	</select>
 
-    <select id="findAll"  resultMap="userResult">
-		select * from FP_USER_BASIC_INFO ubi
+    <select id="findByDeptCode"  resultMap="userResult">
+		select * from FP_USER_BASIC_INFO ubi where branch_id = #{deptCode} and create_date &lt; #{createDate}
 	</select>
 </mapper>
