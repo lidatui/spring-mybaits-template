@@ -18,7 +18,7 @@ $(document).ready(function(){
 
 
     var mmg = $('.mmg').mmGrid({
-        height: 400
+        height: '100%'
         , cols: cols
         , url: 'user/list.json'
         , method: 'get'

@@ -16,6 +16,12 @@
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="http://miemiedev.github.com/mmGrid/src/mmGrid.css">
+        <style>
+            html, body{
+                box-sizing: border-box;
+                height: 100%;
+            }
+        </style>
 
         <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
