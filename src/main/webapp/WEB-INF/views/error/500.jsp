@@ -18,6 +18,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
 	<title>500 - 系统内部错误</title>
 </head>
 
