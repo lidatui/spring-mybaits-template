@@ -14,6 +14,5 @@ public interface UserDao {
 
     public User get(Long id);
 
-
     public List<Map<String, Object>> queryByDeptCode(@Param("deptCode")String deptCode, @Param("createDate")Date createDate ,PageQuery pq);
 }
