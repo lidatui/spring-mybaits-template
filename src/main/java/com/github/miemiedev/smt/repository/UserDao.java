@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @MyBatisRepository
 public interface UserDao {
@@ -14,5 +15,5 @@ public interface UserDao {
     public User get(Long id);
 
 
-    public List<User> findByDeptCode(@Param("deptCode")String deptCode, @Param("createDate")Date createDate ,PageQuery pq);
+    public List<Map<String, Object>> queryByDeptCode(@Param("deptCode")String deptCode, @Param("createDate")Date createDate ,PageQuery pq);
 }

@@ -22,7 +22,7 @@
          where ubi.USER_ID = #{id, jdbcType=NUMERIC}
 	</select>
 
-    <select id="findByDeptCode"  resultMap="userResult">
+    <select id="queryByDeptCode"  resultType="LinkedCaseInsensitiveMap">
 		select * from FP_USER_BASIC_INFO ubi where branch_id = #{deptCode} and create_date &lt; #{createDate}
 	</select>
 </mapper>

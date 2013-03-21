@@ -2,11 +2,13 @@ package com.github.miemiedev.smt.web;
 
 
 import com.github.miemiedev.mybatis.paginator.PageQuery;
+import com.github.miemiedev.mybatis.paginator.SortInfo;
 import com.github.miemiedev.smt.entity.User;
 import com.github.miemiedev.smt.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
@@ -18,11 +20,17 @@ public class UserController {
     @Autowired
     private AuthService authService;
 
-    @ResponseBody
     @RequestMapping(value = "")
-    public List<User> list() throws ParseException {
+    public String listView() {
+        return "account/userList";
+    }
 
-        return authService.findByDeptCode("TTYBJN0120", new PageQuery(1,20));
+    @ResponseBody
+    @RequestMapping(value = "/list.json")
+    public List list(@RequestParam(required = false,defaultValue = "0") int page,
+                     @RequestParam(required = false,defaultValue = "30") int limit,
+                     @RequestParam(required = false) String sort) throws ParseException {
+        return authService.queryByDeptCode("TTYBJN0120", new PageQuery(page, limit, SortInfo.parseSortColumn(sort)));
     }
 
 }

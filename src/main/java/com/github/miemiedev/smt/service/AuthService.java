@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,9 +24,9 @@ public class AuthService {
         return userDao.get(id);
     }
 
-    public List<User> findByDeptCode(String deptCode, PageQuery pq) throws ParseException {
+    public List<Map<String, Object>> queryByDeptCode(String deptCode, PageQuery pq) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return userDao.findByDeptCode(deptCode, sdf.parse("2011-03-02"), pq);
+        return userDao.queryByDeptCode(deptCode, sdf.parse("2011-03-02"), pq);
     }
 
 
