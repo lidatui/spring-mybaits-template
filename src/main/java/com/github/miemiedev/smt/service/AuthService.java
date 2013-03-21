@@ -29,6 +29,9 @@ public class AuthService {
         return userDao.queryByDeptCode(deptCode, sdf.parse("2011-03-02"), pq);
     }
 
+    public List<Map<String, Object>> search(Map params ,PageQuery pq){
+        return userDao.search(params, pq);
+    }
 
     @Autowired
     public void setUserDao(UserDao userDao) {

@@ -25,4 +25,17 @@
     <select id="queryByDeptCode"  resultType="LinkedCaseInsensitiveMap">
 		select * from FP_USER_BASIC_INFO ubi where branch_id = #{deptCode} and create_date &lt; #{createDate}
 	</select>
+
+    <select id="search" parameterType="map" resultType="LinkedCaseInsensitiveMap">
+        select * from FP_USER_BASIC_INFO ubi
+        <where>
+            <if test="userName != null">
+                user_name like '%'|| #{userName} || '%'
+            </if>
+            <if test="realName != null">
+                and real_name like '%'|| #{realName} || '%'
+            </if>
+
+        </where>
+    </select>
 </mapper>
