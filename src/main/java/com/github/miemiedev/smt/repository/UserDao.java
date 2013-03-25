@@ -4,6 +4,7 @@ package com.github.miemiedev.smt.repository;
 import com.github.miemiedev.mybatis.paginator.PageQuery;
 import com.github.miemiedev.smt.entity.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
