@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var dataFormat = function(val){
-        return new Date(val).toString('yyyy-MM-dd')
+        return new Date(val).toString('yyyy-MM-dd');
     }
 
     var cols = [

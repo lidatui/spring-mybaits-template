@@ -5,6 +5,7 @@ import com.github.miemiedev.mybatis.paginator.PageQuery;
 import com.github.miemiedev.mybatis.paginator.SortInfo;
 import com.github.miemiedev.smt.entity.User;
 import com.github.miemiedev.smt.service.AuthService;
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,17 @@ public class UserController {
     public List list(@RequestParam(required = false,defaultValue = "0") int page,
                      @RequestParam(required = false,defaultValue = "30") int limit,
                      @RequestParam(required = false) String sort) throws ParseException {
-        return authService.queryByDeptCode("", new PageQuery(page, limit, SortInfo.parseSortColumn(sort)));
+        PageQuery pageQuery = new PageQuery(page, limit);
+        String sortExpression = "nlssort( ? ,'NLS_SORT=SCHINESE_PINYIN_M')";
+
+        if(!Strings.isNullOrEmpty(sort)){
+            if(sort.trim().toLowerCase().startsWith("real_name")){
+                pageQuery.addSortInfo(sort, sortExpression);
+            }else{
+                pageQuery.addSortInfo(sort);
+            }
+        }
+        return authService.queryByDeptCode("",pageQuery);
     }
 
     @ResponseBody
@@ -42,7 +53,7 @@ public class UserController {
                      @RequestParam(required = false) String sort) throws ParseException {
         Map<String,Object> params = Maps.newHashMap();
         params.put("realName", "李");
-        return authService.search(params, new PageQuery(page, limit, SortInfo.parseSortColumn(sort)));
+        return authService.search(params, new PageQuery(page, limit, sort));
     }
 
 }
