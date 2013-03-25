@@ -22,8 +22,12 @@
          where ubi.USER_ID = #{id, jdbcType=NUMERIC}
 	</select>
 
-    <select id="queryByDeptCode"  resultType="LinkedCaseInsensitiveMap">
-		select * from FP_USER_BASIC_INFO ubi where branch_id = #{deptCode} and create_date &lt; #{createDate}
+    <select id="queryByDeptCode"  resultMap="userResult">
+		select * from FP_USER_BASIC_INFO ubi where
+		<if test="deptCode != null and deptCode != ''">
+            branch_id = #{deptCode} and
+		</if>
+		 create_date &lt; #{createDate}
 	</select>
 
     <select id="search" parameterType="map" resultType="LinkedCaseInsensitiveMap">

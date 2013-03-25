@@ -24,9 +24,9 @@ public class AuthService {
         return userDao.get(id);
     }
 
-    public List<Map<String, Object>> queryByDeptCode(String deptCode, PageQuery pq) throws ParseException {
+    public List<User> queryByDeptCode(String deptCode, PageQuery pq) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return userDao.queryByDeptCode(deptCode, sdf.parse("2011-03-02"), pq);
+        return userDao.queryByDeptCode(deptCode, sdf.parse("2010-03-02"), pq);
     }
 
     public List<Map<String, Object>> search(Map params ,PageQuery pq){

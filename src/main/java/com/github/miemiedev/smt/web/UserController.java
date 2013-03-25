@@ -32,7 +32,7 @@ public class UserController {
     public List list(@RequestParam(required = false,defaultValue = "0") int page,
                      @RequestParam(required = false,defaultValue = "30") int limit,
                      @RequestParam(required = false) String sort) throws ParseException {
-        return authService.queryByDeptCode("TTYBJN0120", new PageQuery(page, limit, SortInfo.parseSortColumn(sort)));
+        return authService.queryByDeptCode("", new PageQuery(page, limit, SortInfo.parseSortColumn(sort)));
     }
 
     @ResponseBody
