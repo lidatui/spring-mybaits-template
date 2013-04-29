@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/account/user")
-public class UserController {
+public class UserController extends BaseController{
     @Autowired
     private AuthService authService;
 
@@ -30,30 +31,28 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/list.json")
-    public List list(@RequestParam(required = false,defaultValue = "0") int page,
-                     @RequestParam(required = false,defaultValue = "30") int limit,
-                     @RequestParam(required = false) String sort) throws ParseException {
-        PageQuery pageQuery = new PageQuery(page, limit);
-        String sortExpression = "nlssort( ? ,'NLS_SORT=SCHINESE_PINYIN_M')";
-
-        if(!Strings.isNullOrEmpty(sort)){
-            if(sort.trim().toLowerCase().startsWith("real_name")){
-                pageQuery.addSortInfo(sort, sortExpression);
-            }else{
-                pageQuery.addSortInfo(sort);
-            }
-        }
+    public List list() throws ParseException {
+        PageQuery pageQuery = getPageQuery();
         return authService.queryByDeptCode("",pageQuery);
     }
 
     @ResponseBody
     @RequestMapping(value = "/search.json")
-    public List search(@RequestParam(required = false,defaultValue = "0") int page,
-                     @RequestParam(required = false,defaultValue = "30") int limit,
-                     @RequestParam(required = false) String sort) throws ParseException {
+    public List search() throws ParseException {
         Map<String,Object> params = Maps.newHashMap();
         params.put("realName", "李");
-        return authService.search(params, new PageQuery(page, limit, sort));
+        return authService.search(params, getPageQuery());
     }
 
+    @Override
+    protected List<SortInfo> getSortInfos(String sort) {
+        if(!Strings.isNullOrEmpty(sort)){
+            if(sort.trim().toLowerCase().startsWith("name")){
+                return SortInfo.parseSortColumns(sort, sortExpression);
+            }else{
+                return SortInfo.parseSortColumns(sort);
+            }
+        }
+        return new ArrayList();
+    }
 }
