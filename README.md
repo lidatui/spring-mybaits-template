@@ -1,1 +1,1 @@
-Spring+MyBatis的基本配置
+Spring+MyBatis含分页的基本配置
