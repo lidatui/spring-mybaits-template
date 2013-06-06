@@ -1,7 +1,7 @@
 package com.github.miemiedev.smt.service;
 
 
-import com.github.miemiedev.mybatis.paginator.PageQuery;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.smt.entity.User;
 import com.github.miemiedev.smt.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,17 @@ public class AuthService {
         return userDao.get(id);
     }
 
-    public List<User> queryByDeptCode(String deptCode, PageQuery pq) throws ParseException {
+    public List<User> queryByDeptCode(String deptCode, PageBounds pageBounds) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return userDao.queryByDeptCode(deptCode, sdf.parse("2010-03-02"), pq);
+        return userDao.queryByDeptCode(deptCode, sdf.parse("2010-03-02"), pageBounds);
     }
 
-    public List<Map<String, Object>> search(Map params ,PageQuery pq){
-        return userDao.search(params, pq);
+    public List<Map<String, Object>> search(Map params ,PageBounds pageBounds){
+        return userDao.search(params, pageBounds);
+    }
+
+    public List<Map<String, Object>> find(PageBounds pageBounds){
+        return userDao.find(pageBounds);
     }
 
     @Autowired

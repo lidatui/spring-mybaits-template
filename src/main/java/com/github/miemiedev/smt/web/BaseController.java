@@ -1,7 +1,7 @@
 package com.github.miemiedev.smt.web;
 
-import com.github.miemiedev.mybatis.paginator.PageQuery;
-import com.github.miemiedev.mybatis.paginator.SortInfo;
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -16,29 +16,29 @@ public class BaseController {
 
     protected static final String sortExpression = "nlssort( ? ,'NLS_SORT=SCHINESE_PINYIN_M')";
 
-    public PageQuery getPageQuery(){
-        return getPageQuery(null);
+    public PageBounds getPageBounds(){
+        return getPageBounds(null);
     }
 
-    public PageQuery getPageQuery(String defaultSort){
+    public PageBounds getPageBounds(String defaultSort){
         Integer page = Integer.valueOf(getParameter("page", "1"));
         Integer limit =  Integer.valueOf(getParameter("limit", "15"));
         String sort = getParameter("sort", defaultSort);
 
-        PageQuery pageQuery = new PageQuery(page, limit);
+        PageBounds pageBounds = new PageBounds(page, limit);
 
-        List<SortInfo> sortInfos = getSortInfos(sort);
-        pageQuery.getSortInfoList().addAll(sortInfos);
+        List<Order> orders = getSortInfos(sort);
+        pageBounds.getOrders().addAll(orders);
 
-        return pageQuery;
+        return pageBounds;
+    }
+
+    protected List<Order> getSortInfos(String sort){
+        return Order.formString(sort);
     }
 
     protected String getParameter(String name){
         return getParameter(name,"");
-    }
-
-    protected List<SortInfo> getSortInfos(String sort){
-        return SortInfo.parseSortColumns(sort);
     }
 
     protected String getParameter(String name, String defaultValue){

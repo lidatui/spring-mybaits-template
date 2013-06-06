@@ -25,6 +25,11 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!--清理分页线程池 -->
+    <listener>
+        <listener-class>com.github.miemiedev.mybatis.paginator.CleanUpMybatisPaginatorListener</listener-class>
+    </listener>
+
     <!-- Spring MVC Servlet -->
     <servlet>
         <servlet-name>springServlet</servlet-name>

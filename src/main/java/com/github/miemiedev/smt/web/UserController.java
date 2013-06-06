@@ -1,16 +1,13 @@
 package com.github.miemiedev.smt.web;
 
 
-import com.github.miemiedev.mybatis.paginator.PageQuery;
-import com.github.miemiedev.mybatis.paginator.SortInfo;
-import com.github.miemiedev.smt.entity.User;
+import com.github.miemiedev.mybatis.paginator.domain.Order;
 import com.github.miemiedev.smt.service.AuthService;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
@@ -32,8 +29,7 @@ public class UserController extends BaseController{
     @ResponseBody
     @RequestMapping(value = "/list.json")
     public List list() throws ParseException {
-        PageQuery pageQuery = getPageQuery();
-        return authService.queryByDeptCode("",pageQuery);
+        return authService.queryByDeptCode("", getPageBounds());
     }
 
     @ResponseBody
@@ -41,16 +37,16 @@ public class UserController extends BaseController{
     public List search() throws ParseException {
         Map<String,Object> params = Maps.newHashMap();
         params.put("realName", "李");
-        return authService.search(params, getPageQuery());
+        return authService.search(params, getPageBounds());
     }
 
     @Override
-    protected List<SortInfo> getSortInfos(String sort) {
+    protected List<Order> getSortInfos(String sort) {
         if(!Strings.isNullOrEmpty(sort)){
             if(sort.trim().toLowerCase().startsWith("name")){
-                return SortInfo.parseSortColumns(sort, sortExpression);
+                return Order.formString(sort, sortExpression);
             }else{
-                return SortInfo.parseSortColumns(sort);
+                return Order.formString(sort);
             }
         }
         return new ArrayList();
