@@ -27,7 +27,7 @@
 
     <!--清理分页线程池 -->
     <listener>
-        <listener-class>com.github.miemiedev.mybatis.paginator.CleanUpMybatisPaginatorListener</listener-class>
+        <listener-class>com.github.miemiedev.mybatis.paginator.CleanupMybatisPaginatorListener</listener-class>
     </listener>
 
     <!-- Spring MVC Servlet -->
