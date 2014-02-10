@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%response.setStatus(200);%>
+<%response.setStatus(404);%>
 
 <!DOCTYPE html>
 <html>

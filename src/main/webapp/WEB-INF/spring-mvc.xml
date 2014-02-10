@@ -10,23 +10,31 @@
 	<!-- 自动扫描且只扫描@Controller -->
 	<context:component-scan base-package="com.github.miemiedev.smt" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
+    </context:component-scan>
+
+    <bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper">
+            <bean class="com.github.miemiedev.mybatis.paginator.jackson2.PageListJsonMapper" />
+        </property>
+    </bean>
 
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter"> 
 				<constructor-arg value="UTF-8" />        
 			</bean>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper">
-                    <bean class="com.github.miemiedev.mybatis.paginator.jackson2.PageListJsonMapper" />
-                </property>
-            </bean>
+            <ref bean="mappingJackson2HttpMessageConverter" />
+
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
 	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
 	<mvc:default-servlet-handler />
+
+    <!--@ResponseBody方法异常处理-->
+    <bean class="com.github.miemiedev.smt.support.ResponseBodyHandlerExceptionResolver">
+        <property name="messageConverter" ref="mappingJackson2HttpMessageConverter"/>
+    </bean>
 
 	<!-- 定义JSP文件的位置 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
