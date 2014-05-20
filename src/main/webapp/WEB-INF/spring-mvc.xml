@@ -36,7 +36,16 @@
         <property name="messageConverter" ref="mappingJackson2HttpMessageConverter"/>
     </bean>
 
-	<!-- 定义JSP文件的位置 -->
+    <mvc:interceptors>
+        <!-- 多个拦截器,顺序执行 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" /><!-- 如果不配置或/*,将拦截所有的Controller -->
+            <bean class="com.github.miemiedev.mybatis.paginator.springmvc.PageListAttrHandlerInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <!-- 定义JSP文件的位置 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
