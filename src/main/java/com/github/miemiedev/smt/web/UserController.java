@@ -38,11 +38,8 @@ public class UserController{
 
     @RequestMapping(value = "/jstl.action")
     public String usersView(PageForm pageForm, HttpServletRequest request) throws ParseException {
-        pageForm.addOrderExpr("REAL_NAME", "nlssort(? ,'NLS_SORT=SCHINESE_PINYIN_M') ? nulls last");
-        PageList users = (PageList)authService.queryByDeptCode("", pageForm.toPageBounds());
-
+        List users = list(pageForm);
         request.setAttribute("users", users);
-
         return "account/jstl";
     }
 
