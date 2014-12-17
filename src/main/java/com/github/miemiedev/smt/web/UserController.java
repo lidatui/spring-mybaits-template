@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -37,10 +38,9 @@ public class UserController{
 
 
     @RequestMapping(value = "/jstl.action")
-    public String usersView(PageForm pageForm, HttpServletRequest request) throws ParseException {
+    public Object usersView(PageForm pageForm, HttpServletRequest request) throws ParseException {
         List users = list(pageForm);
-        request.setAttribute("users", users);
-        return "account/jstl";
+        return new ModelAndView( "account/jstl","users", users);
     }
 
 
